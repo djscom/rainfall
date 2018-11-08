@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+<link rel='stylesheet' href='{% load staticfiles %}{% static 'rain/style.css' %}' type='text/css' media='all' />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+html{min-height:100%}
+body{max-width:700px;min-height:100%;font-family:monospace;text-shadow:0 1px 15px #000}
+h1{color:#fff;font-size:50px;margin:0}
+h2{color:gold;font-size:35px;text-decoration:underline;margin:15px 0}
+.rainfall{font-family:cambria;color:royalblue;font-size:90px;}
+.record{display: none;float:left;}
+.record:first-of-type{display:block;}
+#next, #prev{font-family:Courier New;font-size:40px;float:left;width:5%;margin-top:15px;text-decoration:none;color:gold;}
+#next{text-align:right;}
+p{width:100%;float:left}
+@media screen and (max-width: 500px){
+	.record{text-align:center;width:80%}
+}
+span
+</style>
+</head>
+<body>
+<h1>Last Recorded Rainfall in Toowoomba</h1>
+{% if rainfall %}
+<a id="prev" href=""><</a>
+{% for last_rain in rainfall %}
+<div class="record">
+<h2>{{ last_rain.local_date_time_full|date:'l, d F Y' }}</h2>
+<span class="rainfall">{{ last_rain.rain_trace }}mm</span>
+</div>
+{% endfor %}
+<a id="next" style="visibility:hidden" href="">></a>
+<p>*Data collected ({{ recordcount }} records) from the Bureau of Meteorology from {{ firstdatapoint }}. Rain since 09:00AM.</p>
+{% else %}
+    <p>No rain data available.</p>
+{% endif %}
+<script>
+var prev = document.getElementById("prev");
+prev.onclick = function(e){
+	e.preventDefault();
+	var record = document.getElementsByClassName("record");
+	for(var i = 0; i < record.length; i++){
+		if (record[i].style.display == "" || record[i].style.display == "block"){
+			record[i].style.display = "none";
+			if (i+2 == record.length){
+				prev.style.visibility = "hidden";	
+				next.style.visibility = "visible";
+			}
+			if (i+2 < record.length){
+				next.style.visibility = "visible";
+			}
+			record[i+1].style.display = "block";
+			break;
+		}
+	}
+};
+var next = document.getElementById("next");
+next.onclick = function(e){
+	e.preventDefault();
+	var record = document.getElementsByClassName("record");
+	for(var i = 0; i < record.length; i++){
+		if (record[i].style.display == "" || record[i].style.display == "block"){
+			record[i].style.display = "none";
+			if (i - 1 == 0){
+				next.style.visibility = "hidden";
+				prev.style.visibility = "visible";
+			}
+			if (i -1 > 0){
+				prev.style.visibility = "visible";
+			}
+			record[i-1].style.display = "block";
+			break;
+		}
+	}
+};
+</script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+body{background:url('community.jpg');background-size:cover;color:#fff;}
+#rain{font-size:125px}
+@media only screen and (max-device-width: 500px){
+#rain{font-size:65px}
+}
