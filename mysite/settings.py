@@ -25,7 +25,7 @@ SECRET_KEY = '66bx*3g#^8-*o6ce9l@1n-w4!0(f4-3hvvja-ky*bko9q%&vlh'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['rainfall.djscom.com']
+ALLOWED_HOSTS = ['toowoombarainfall.djscom.com']
 
 
 # Application definition

@@ -15,7 +15,7 @@ class Command(BaseCommand):
 		
 		count = 0
 		for rain in data['observations']['data']:
-			if (not Weather.objects.filter(aifstime_utc=rain['aifstime_utc']).exists()) and (rain['rain_trace'] != '-' or rain['rain_trace'] != '0.0'):
+			if (not Weather.objects.filter(aifstime_utc=rain['aifstime_utc']).exists()) and (rain['rain_trace'] != '-' and rain['rain_trace'] != '0.0'):
 				count = count + 1
 				r = Weather(swell_period=rain['swell_period'], \
 				 wind_dir=rain['wind_dir'],lat = rain['lat'], \
